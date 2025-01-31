@@ -1,62 +1,66 @@
-import dayjs, { type Dayjs } from 'dayjs';
+//import dayjs, { type Dayjs } from 'dayjs';
 import dotenv from 'dotenv';
 dotenv.config();
 
 // TODO: Define an interface for the Coordinates object
-interface Coordinates {
-  name: string;
-  lat: number;
-  lon: number;
-  country: string;
-  state: string;
-}
+// interface Coordinates {
+//   name: string;
+//   lat: number;
+//   lon: number;
+//   country: string;
+//   state: string;
+// }
 
 // TODO: Define a class for the Weather object
-class Weather {
-  city: string;
-  date: Dayjs | string;
-  tempF: number;
-  windSpeed: number;
-  humidity: number;
-  icon: string;
-  iconDescription: string;
-  constructor(
-    city: string,
-    date: Dayjs | string,
-    tempF: number,
-    windSpeed: number,
-    humidity: number,
-    icon: string,
-    iconDescription: string
-  ) {
-    this.city = city;
-    this.date = date;
-    this.tempF = tempF;
-    this.windSpeed = windSpeed;
-    this.humidity = humidity;
-    this.icon = icon;
-    this.iconDescription = iconDescription;
-  }
-}
+// class Weather {
+//   city: string;
+//   date: Dayjs | string;
+//   tempF: number;
+//   windSpeed: number;
+//   humidity: number;
+//   icon: string;
+//   iconDescription: string;
+//   constructor(
+//     city: string,
+//     date: Dayjs | string,
+//     tempF: number,
+//     windSpeed: number,
+//     humidity: number,
+//     icon: string,
+//     iconDescription: string
+//   ) {
+//     this.city = city;
+//     this.date = date;
+//     this.tempF = tempF;
+//     this.windSpeed = windSpeed;
+//     this.humidity = humidity;
+//     this.icon = icon;
+//     this.iconDescription = iconDescription;
+//   }
+// }
 
 // TODO: Complete the WeatherService class
 class WeatherService {
-  
+
   private baseURL?: string;
 
   private apiKey?: string;
 
-  private city = '';
+   city?: string;
 
   constructor() {
     this.baseURL = process.env.API_BASE_URL || '';
 
     this.apiKey = process.env.API_KEY || '';
+
+    //this.city = '';
+
   }
+
   // * Note: The following methods are here as a guide, but you are welcome to provide your own solution.
   // * Just keep in mind the getWeatherForCity method is being called in your
   // * 09-Servers-and-APIs/02-Challenge/Develop/server/src/routes/api/weatherRoutes.ts file
-  
+
   // * the array of Weather objects you are returning ultimately goes to
   // * 09-Servers-and-APIs/02-Challenge/Develop/client/src/main.ts
 
@@ -77,7 +81,22 @@ class WeatherService {
   // TODO: Complete buildForecastArray method
   // private buildForecastArray(currentWeather: Weather, weatherData: any[]) {}
   // TODO: Complete getWeatherForCity method
-  // async getWeatherForCity(city: string) {}
+  //fetch request with city name
+  async getWeatherForCity(city: string) {
+    console.log(city)
+    this.city = city
+    try {
+      const responseStuff = await fetch(`${this.baseURL}/data/2.5/forecast?q=${this.city}&units=imperial&appid=${this.apiKey}`)
+      const wResponse = await responseStuff.json()
+      console.log(wResponse)
+      console.log(wResponse.list[0])
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
 }
 
+//fetch(`${this.baseURL}api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`)
 export default new WeatherService();

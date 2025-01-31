@@ -1,16 +1,16 @@
-import fs from 'node:fs/promises';
-import { v4 as uuidv4 } from 'uuid';
+//import fs from 'node:fs/promises';
+//import { v4 as uuidv4 } from 'uuid';
 
 // TODO: Define a City class with name and id properties
-class City {
-  name: string;
-  id: string;
+// class City {
+//   name: string;
+//   id: string;
 
-  constructor(name: string, id: string) {
-    this.name = name;
-    this.id = id;
-  }
-}
+//   constructor(name: string, id: string) {
+//     this.name = name;
+//     this.id = id;
+//   }
+// }
 
 // TODO: Complete the HistoryService class
 class HistoryService {
