@@ -33,7 +33,7 @@ dotenv.config();
 // TODO: Define a class for the Weather object
 // class Weather {
 //   city: string;
-//   date: Dayjs | string;
+//   date:  string;
 //   tempF: number;
 //   windSpeed: number;
 //   humidity: number;
@@ -41,7 +41,7 @@ dotenv.config();
 //   iconDescription: string;
 //   constructor(
 //     city: string,
-//     date: Dayjs | string,
+//     date: string,
 //     tempF: number,
 //     windSpeed: number,
 //     humidity: number,
@@ -106,30 +106,29 @@ class WeatherService {
     this.city = city
     try {
       const responseStuff = await fetch(`${this.baseURL}/data/2.5/forecast?q=${this.city}&units=imperial&appid=${this.apiKey}`)
+
+      //wResponse contains an object that has three properties: cod (200, 300, 400 etc), message(i dont know what that does, possible the code message), cnt(don't know what that is either) and the list property that is used in the testFunction array of objects and a city object at the end of it.
       const wResponse = await responseStuff.json()
 
-      const testForecast: List[] = [];
-      for (let index = 0; index < wResponse.list.length; index++) {
-        testForecast.push(wResponse.list[index]);
-       
-      }
-      
-      const cityObject: TestCity = await wResponse.city
-
-      //wResponse contains an object that has three properties: cod (200, 300, 400 etc), message(i dont know what that does), cnt(don't know what that is either) and the list property that is used in the testFunction array of objects.
-      //console.log(wResponse)
-     //cityObject contains an object that has the name of the city the lat and lon and the country.
-
-      console.log(cityObject)
+      const testForecast: List[] = wResponse.list ?? [];
       //testForecast contains the list property from the wResponse, in the list is an array of all the objects. use brakets then dot notation to access the specific object then the property on that object.
-      console.log(testForecast[0])
-     
-   
-     
-        
+
+      // for (let index = 0; index < wResponse.list.length; index++) {
+      //   testForecast.push(wResponse.list[index]); 
+      // }
       
+      //cityObject contains an object that has the name of the city the lat and lon and the country.
+      const cityObject: TestCity = wResponse.city
+
+      
+      console.log(wResponse)
+     
+      console.log(cityObject)
+      
+      console.log(testForecast[0])
+       
     } catch (err) {
-      console.log(err)
+      console.error("Error fetching weather data:", err);
     }
 
    
