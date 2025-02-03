@@ -10,7 +10,26 @@ dotenv.config();
 //   country: string;
 //   state: string;
 // }
+  interface TestCity {
+    id: number;
+    name: string;
+    coord:{lat: number, lon: number};
+    country?: string;
+  }
 
+  interface List {
+    main: {
+      temp: number;
+      humidity: number;
+    };
+    weather: {
+        main: string,
+        description: string,
+        icon: string
+              } [];
+    wind: {speed: number,};
+    dt_txt: string;
+   }
 // TODO: Define a class for the Weather object
 // class Weather {
 //   city: string;
@@ -83,17 +102,37 @@ class WeatherService {
   // TODO: Complete getWeatherForCity method
   //fetch request with city name
   async getWeatherForCity(city: string) {
-    console.log(city)
+    //console.log(city)
     this.city = city
     try {
       const responseStuff = await fetch(`${this.baseURL}/data/2.5/forecast?q=${this.city}&units=imperial&appid=${this.apiKey}`)
       const wResponse = await responseStuff.json()
-      console.log(wResponse)
-      console.log(wResponse.list[0])
+
+      const testForecast: List[] = [];
+      for (let index = 0; index < wResponse.list.length; index++) {
+        testForecast.push(wResponse.list[index]);
+       
+      }
+      
+      const cityObject: TestCity = await wResponse.city
+
+      //wResponse contains an object that has three properties: cod (200, 300, 400 etc), message(i dont know what that does), cnt(don't know what that is either) and the list property that is used in the testFunction array of objects.
+      //console.log(wResponse)
+     //cityObject contains an object that has the name of the city the lat and lon and the country.
+
+      console.log(cityObject)
+      //testForecast contains the list property from the wResponse, in the list is an array of all the objects. use brakets then dot notation to access the specific object then the property on that object.
+      console.log(testForecast[0])
+     
+   
+     
+        
+      
     } catch (err) {
       console.log(err)
     }
 
+   
   }
 
 }
