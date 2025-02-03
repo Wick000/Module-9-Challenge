@@ -10,53 +10,53 @@ dotenv.config();
 //   country: string;
 //   state: string;
 // }
-  interface TestCity {
-    id: number;
-    name: string;
-    coord:{lat: number, lon: number};
-    country?: string;
-  }
+interface TestCity {
+  id: number;
+  name: string;
+  coord: { lat: number, lon: number };
+  country?: string;
+}
 
-  interface List {
-    main: {
-      temp: number;
-      humidity: number;
-    };
-    weather: {
-        main: string,
-        description: string,
-        icon: string
-              } [];
-    wind: {speed: number,};
-    dt_txt: string;
-   }
+interface List {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: {
+    main: string,
+    description: string,
+    icon: string
+  }[];
+  wind: { speed: number, };
+  dt_txt: string;
+}
 // TODO: Define a class for the Weather object
-// class Weather {
-//   city: string;
-//   date:  string;
-//   tempF: number;
-//   windSpeed: number;
-//   humidity: number;
-//   icon: string;
-//   iconDescription: string;
-//   constructor(
-//     city: string,
-//     date: string,
-//     tempF: number,
-//     windSpeed: number,
-//     humidity: number,
-//     icon: string,
-//     iconDescription: string
-//   ) {
-//     this.city = city;
-//     this.date = date;
-//     this.tempF = tempF;
-//     this.windSpeed = windSpeed;
-//     this.humidity = humidity;
-//     this.icon = icon;
-//     this.iconDescription = iconDescription;
-//   }
-// }
+class Weather {
+  city: string;
+  date: string;
+  tempF: number;
+  windSpeed: number;
+  humidity: number;
+  icon: string;
+  iconDescription: string;
+  constructor(
+    city: string,
+    date: string,
+    tempF: number,
+    windSpeed: number,
+    humidity: number,
+    icon: string,
+    iconDescription: string
+  ) {
+    this.city = city;
+    this.date = date;
+    this.tempF = tempF;
+    this.windSpeed = windSpeed;
+    this.humidity = humidity;
+    this.icon = icon;
+    this.iconDescription = iconDescription;
+  }
+}
 
 // TODO: Complete the WeatherService class
 class WeatherService {
@@ -65,7 +65,7 @@ class WeatherService {
 
   private apiKey?: string;
 
-   city?: string;
+  city?: string;
 
   constructor() {
     this.baseURL = process.env.API_BASE_URL || '';
@@ -110,28 +110,41 @@ class WeatherService {
       //wResponse contains an object that has three properties: cod (200, 300, 400 etc), message(i dont know what that does, possible the code message), cnt(don't know what that is either) and the list property that is used in the testFunction array of objects and a city object at the end of it.
       const wResponse = await responseStuff.json()
 
-      const testForecast: List[] = wResponse.list ?? [];
-      //testForecast contains the list property from the wResponse, in the list is an array of all the objects. use brakets then dot notation to access the specific object then the property on that object.
+      const testForecast: List[] = [];
 
-      // for (let index = 0; index < wResponse.list.length; index++) {
-      //   testForecast.push(wResponse.list[index]); 
-      // }
-      
+      // new Weather()
+
+      //testForecast contains the list property from the wResponse, in the list is an array of all the objects. use brakets then dot notation to access the specific object then the property on that object.
+      testForecast.push(wResponse.list[0])
+      for (let index = 0; index < wResponse.list.length; index += 8) {
+        //console.log(wResponse.list[index])
+        testForecast.push(wResponse.list[index]);
+      }
+
       //cityObject contains an object that has the name of the city the lat and lon and the country.
       const cityObject: TestCity = wResponse.city
 
-      
-      console.log(wResponse)
-     
-      console.log(cityObject)
-      
+      //console.log("-------",testForecast.length)
+
+
+      console.log("-------", cityObject)
+
       console.log(testForecast[0])
-       
+
+      const parseWeather = testForecast.map((weatherObj) => {
+        console.log(weatherObj)
+        return new Weather(cityObject.name, weatherObj.dt_txt, weatherObj.main.temp, weatherObj.wind.speed, weatherObj.main.humidity, weatherObj.weather[0].icon, weatherObj.weather[0].description)
+      })
+        console.log("------", parseWeather)
+      return parseWeather
+
     } catch (err) {
       console.error("Error fetching weather data:", err);
+
+      return (err)
     }
 
-   
+
   }
 
 }
