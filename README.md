@@ -1,2 +1,41 @@
-# Module-9-Challenge
-A weather dashboard application that calls the OpenWeather API and renders data in the browser.
+# Weather Dashboard
+
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+
+## Description
+
+A weather dashboard Application that calls the OpenWeather API and renders the current and 5 day forecast in the browser.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Screenshot](#screenshot)
+- [Questions](#questions)
+
+## Installation
+
+Run the following command to install dependencies:
+
+```
+npm i
+```
+
+## Usage
+
+Run "npm run start:dev" to start the application.
+
+
+## License
+
+This project is licensed under the MIT license. For more information, see [this link](https://opensource.org/licenses/MIT).
+
+## Screenshot
+
+![Weather](https://github.com/user-attachments/assets/c4648d01-bf3a-4c96-b374-895124f00036)
+
+
+## Questions
+
+If you have any questions, feel free to reach out to me at [wick9872000@gmail.com](mailto:wick9872000@gmail.com). You can also find me on GitHub at [Wick000](https://github.com/Wick000).
