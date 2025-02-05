@@ -1,3 +1,22 @@
 [
-
+	{
+		"name": "Miami",
+		"id": "4f301329-ac91-46b7-8a3e-1760ec436e43"
+	},
+	{
+		"name": "Tampa",
+		"id": "c04581e4-97fa-4f16-b75d-a2e7dd6a7922"
+	},
+	{
+		"name": "Orlando",
+		"id": "640c05d6-dbf7-4b5c-a41b-d7d6e73aa6a8"
+	},
+	{
+		"name": "Las Vegas",
+		"id": "de57d6e8-3207-47be-9ffe-a94580b262c2"
+	},
+	{
+		"name": "Topeka",
+		"id": "6bd1b775-4da0-4f3a-a591-eff4b7475649"
+	}
 ]
